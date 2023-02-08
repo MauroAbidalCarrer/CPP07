@@ -25,10 +25,10 @@ template<typename T> class Array
         {
             array[i] = T();
         }
-        
     }
     Array(const Array& other)
     {
+        array = NULL;
         *this = other;
     }
     ~Array()
@@ -38,6 +38,9 @@ template<typename T> class Array
     //overloads
     Array& operator=(const Array& rhs)
     {
+        _size = rhs.size();
+        if (array != NULL)
+            delete[] array;
         array = rhs.getArray();
         return *this;
     }
