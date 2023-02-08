@@ -19,8 +19,6 @@ template<typename T> class Array
     }
     Array(unsigned int size)
     {
-        if (size < 0)
-            throw WrongSizeException();
         _size = size;
         array = new T[size];
         for (size_t i = 0; i < size; i++)
@@ -67,13 +65,6 @@ template<typename T> class Array
         const char* what() const throw()
         {
             return "Errror: index out of bounds!";
-        }
-    };
-    class WrongSizeException : public std::exception
-    {
-        const char* what() const throw()
-        {
-            return "Error: passed negative size array constructor parameter!";
         }
     };
 };
