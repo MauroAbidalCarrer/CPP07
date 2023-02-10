@@ -1,10 +1,13 @@
 #include "Array.hpp"
 #include <string>
 #include <iostream>
+#include <cstdlib>
 
 # define NB_INTS 10
 # define NB_STRINGS 4
-int main()
+# define MAX_VAL 750
+
+void myTests()
 {
     Array<int> intArray = Array<int>(NB_INTS);
     for (size_t i = 0; i < NB_INTS; i++)
@@ -77,4 +80,62 @@ int main()
     {
         std::cout << "caught an error as expected: " << e.what() << '\n';
     }
+}
+
+int schoolTests()
+{
+    Array<int> numbers(MAX_VAL);
+    int* mirror = new int[MAX_VAL];
+    srand(time(NULL));
+    for (int i = 0; i < MAX_VAL; i++)
+    {
+        const int value = rand();
+        numbers[i] = value;
+        mirror[i] = value;
+    }
+    //SCOPE
+    {
+        Array<int> tmp = numbers;
+        Array<int> test(tmp);
+    }
+
+    for (int i = 0; i < MAX_VAL; i++)
+    {
+        if (mirror[i] != numbers[i])
+        {
+            std::cerr << "didn't save the same value!!" << std::endl;
+            return 1;
+        }
+    }
+    try
+    {
+        numbers[-2] = 0;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << "School test caught an error as expected: " << e.what() << '\n';
+    }
+    try
+    {
+        numbers[MAX_VAL] = 0;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << "School test caught an error as expected: " << e.what() << '\n';
+    }
+
+    for (int i = 0; i < MAX_VAL; i++)
+    {
+        numbers[i] = rand();
+    }
+    delete [] mirror;//
+    return 0;
+}
+
+int main()
+{
+    std::cout << "--------------------my tests--------------------" << std::endl;
+    myTests();
+    std::cout << "--------------------school tests--------------------" << std::endl;
+    return schoolTests();
 }
