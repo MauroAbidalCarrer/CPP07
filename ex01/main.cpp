@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 
-template<typename T> void ft_print(T t)
+template<typename T> void ft_print(T const & t)
 {
     std::cout << t << std::endl;
 }

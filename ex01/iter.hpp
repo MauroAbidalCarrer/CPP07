@@ -2,7 +2,7 @@
 # define ITER_HPP
 # include <cstring>
 
-template<typename T> void iter(T* array, std::size_t size, void (*func)(T))
+template<typename T> void iter(T* array, std::size_t size, void (*func)(T const &))
 {
     for (std::size_t i = 0; i < size && array != NULL; i++)
     {
